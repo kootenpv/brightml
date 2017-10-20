@@ -21,7 +21,7 @@ brightml: Machine-Learned Auto brightness
     :target: https://pypi.python.org/pypi/brightml
 
 The goal of this package is to automatically manage brightness on laptops, with "zero config"; using machine learning.
-Some do not even realise that what is "on" your screen matters. White screens (like browser) vs coding (in black) should be corrected for.
+Some do not even realise that what is "on" your screen, matters. White screens (like browser) vs coding (in black) should be accounted for.
 
 All you have to do is to change brightness when it is not good enough yet; **brightml** learns.
 
@@ -40,7 +40,7 @@ Features
 - Cross-OS (within Linux)
 - Cross-vendor (intel, nvidia)
 - Cross-hardware (with or without ambient light sensor, linux on macbook works)
-- No need to change key bindings; it monitors brightness change by user!
+- Seamless integration: No need to change key bindings as it monitors brightness change by user
 - Uses asyncio, event-based (change of window immediately triggers prediction; no timer)
 
 Goals
