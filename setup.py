@@ -38,9 +38,15 @@ extras_require = {
     'whereami': ['whereami']
 }
 
+# poor man's version parser
+with open("brightml/__init__.py") as f:
+    for line in f:
+        version = line.strip().split()[-1].strip('"')
+        break
+
 setup(
     name='brightml',
-    version='0.0.0',
+    version=version,
     description='Machine Learned Auto brightness',
     long_description=long_description,
     author='Pascal van Kooten',
