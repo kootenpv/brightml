@@ -1,0 +1,23 @@
+{
+    "datetime_date": "2017-09-27",
+    "datetime_time": "09:16:31.862691",
+    "datetime_timezone": "UTC+02:00",
+    "datetime_hour": 9,
+    "datetime_full": "2017-09-27 09:16:31.862691+02:00",
+    "root_height": 1800,
+    "root_width": 2880,
+    "active_window_height": 1743,
+    "active_window_width": 2872,
+    "active_window_y": 0,
+    "active_window_x": 4,
+    "whereami": "jibes",
+    "image_file_path": "/home/pascal/.screensy/images/2017-09-27_09_16_31.862691_02_00.png",
+    "active_window_class": "emacs Emacs",
+    "active_window_name": "*IPython3*",
+    "mouse_y": 1341,
+    "mouse_x": 1902,
+    "max_brightness": 1023,
+    "brightness_change": 100,
+    "current_brightness": 123,
+    "ambient_light": 47
+}

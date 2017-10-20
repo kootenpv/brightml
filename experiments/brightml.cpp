@@ -53,15 +53,15 @@ int getMaxBrightness() {
   return max_backlight;
 }
 
-int getScreensyValue() {
+int getBrightMLValue() {
   // if value is same as current value, i should not write
   int fd, max_backlight;
   //const char *scr_maxbacklight="/sys/class/backlight/acpi_video0/max_brightness";
-  const char *screensyValue="/home/pascal/egoroot/screensy/screensy_value";
+  const char *brightmlValue="/home/pascal/egoroot/brightml/brightml_value";
   ssize_t cnt;
   char buf[5];
   /* read screen max backlight value */
-  fd = open(screensyValue, O_RDONLY);
+  fd = open(brightmlValue, O_RDONLY);
   if (fd < 0) {
     return 100;
   }
@@ -232,7 +232,7 @@ int main(int argc, char** argv) {
   float averagePixel;
   int maxBrightness = getMaxBrightness();
 
-  float screensyValue = getScreensyValue();
+  float brightmlValue = getBrightMLValue();
   int oldValue = maxBrightness;
 
   XImage *image;
@@ -241,9 +241,9 @@ int main(int argc, char** argv) {
   while (true) {
     lightSensorValue = getLightSensorValue();
     averagePixel = getAveragePixel(disp, image);
-    screensyValue = getScreensyValue();
+    brightmlValue = getBrightMLValue();
 
-    newValue = pow(1 - (averagePixel / 255), screensyValue / 100) * maxBrightness;
+    newValue = pow(1 - (averagePixel / 255), brightmlValue / 100) * maxBrightness;
 
     if (lightSensorValue <= 10) {
       newValue = newValue * 0.5;
@@ -251,11 +251,11 @@ int main(int argc, char** argv) {
 
     newValue = max(10, min(newValue, maxBrightness));
 
-    if (screensyValue == 0) {
+    if (brightmlValue == 0) {
       newValue = maxBrightness;
     }
 
-    if (screensyValue == 500) {
+    if (brightmlValue == 500) {
       newValue = 0;
     }
 
@@ -270,7 +270,7 @@ int main(int argc, char** argv) {
     printf("maxB %d\n", maxBrightness);
     printf("avg %f\n", averagePixel);
     printf("newValue %f\n", newValue);
-    printf("screensyValue %f\n", screensyValue);
+    printf("brightmlValue %f\n", brightmlValue);
     printf("lightSensorValue %d\n", lightSensorValue);
 
 

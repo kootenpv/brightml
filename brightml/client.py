@@ -2,16 +2,19 @@ import sys
 import time
 import zmq
 
-if __name__ == "__main__":
+def main(change_value=None):
     ctx = zmq.Context()
     pub = ctx.socket(zmq.PUSH)
     #pub.setsockopt(zmq.SNDHWM, 1)
     #pub.setsockopt(zmq.LINGER, 1)
-    pub.bind("ipc:///tmp/screensy_socket")
+    pub.bind("ipc:///tmp/brightml_socket")
 
-    if len(sys.argv) > 1:
-        pub.send_string("add_train " + sys.argv[1])
+    if change_value is not None:
+        pub.send_string("add_train " + change_value)
     else:
         while True:
             change = input(">>:)>>: ")
             pub.send_string("add_train " + change)
+
+if __name__ == "__main__":
+    main()

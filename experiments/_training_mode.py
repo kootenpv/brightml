@@ -9,7 +9,7 @@ import numpy as np
 
 DATE_FORMAT = '%Y-%m-%dT%H:%M:%S%z'
 
-# data = sorted(just.iread("/home/pascal/.screensy/data.jsonl"), key=lambda x: x["datetime_full"])
+# data = sorted(just.iread("/home/pascal/.brightml/data.jsonl"), key=lambda x: x["datetime_full"])
 
 
 def change_brightness():
@@ -128,7 +128,7 @@ def get_features(data_path):
 
 
 if __name__ == "__main__":
-    get_features("~/.screensy")
+    get_features("~/.brightml")
 
 
 def bla():
