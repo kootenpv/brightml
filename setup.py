@@ -25,6 +25,7 @@ if sys.argv[-1] == "publish":
 
 required = [
     "zmq",
+    "scipy",
     "numpy",
     "pandas",
     "scikit-learn",
