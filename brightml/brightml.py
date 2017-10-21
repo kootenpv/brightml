@@ -32,20 +32,20 @@ class Brightml():
             if self.old_value != new_value:
                 #print("NEW STATE", features)
                 if self.pipeline_clf:
-                    try:
-                        #t1 = time.time()
-                        data = pd.DataFrame([features])
-                        pipeline, clf = self.pipeline_clf
-                        data = pipeline.transform(data)
-                        # y is nans in this case
-                        X, _ = data[:, :-1], data[:, -1]
-                        pred = int(100 * clf.predict(X)[0])
-                        tmpl = "new_brightness={}% app={}"
-                        print(tmpl.format(pred, features["display_window_class"]))
-                        self.bm.set_by_percentage(pred)
-                    except ValueError as e:
-                        print(e)
+                    #t1 = time.time()
+                    data = pd.DataFrame([features])
+                    pipeline, clf = self.pipeline_clf
+                    if pipeline is None:
+                        print(
+                            "Change your brightness to create your first data sample (there is no data found).")
                         return
+                    data = pipeline.transform(data)
+                    # y is nans in this case
+                    X, _ = data[:, :-1], data[:, -1]
+                    pred = int(100 * clf.predict(X)[0])
+                    tmpl = "new_brightness={}% app={}"
+                    print(tmpl.format(pred, features["display_window_class"]))
+                    self.bm.set_by_percentage(pred)
                 else:
                     print("PREDICTING!")
                 self.old_value = new_value

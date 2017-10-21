@@ -4,6 +4,7 @@ from sklearn.pipeline import TransformerMixin
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.pipeline import make_pipeline
 from sklearn.ensemble import RandomForestRegressor
+from sklearn.neighbors import KNeighborsRegressor
 
 from brightml.utils import get_training_data
 
@@ -101,8 +102,10 @@ def prune(data):
     return sl.fit_transform(data)
 
 
-def get_classifier_pipeline(path=None, clf=RandomForestRegressor(100)):
+def get_classifier_pipeline(path=None, clf=KNeighborsRegressor(1)):
     data = get_training_data(path)
+    if data is None:
+        return None, None
     data.drop("datetime_timezone", axis=1, inplace=True)
     pipeline = get_pipeline(data)
     data = pipeline.fit_transform(data)

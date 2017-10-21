@@ -40,7 +40,10 @@ def prep_data(data):
 
 def get_training_data(path=None):
     path = get_data_path(path)
-    data = pd.read_json(path, lines=True)
+    try:
+        data = pd.read_json(path, lines=True)
+    except ValueError:
+        return None
     return prep_data(data)
 
 
