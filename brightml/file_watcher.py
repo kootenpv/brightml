@@ -6,6 +6,7 @@ from watchdog.observers import Observer
 from brightml.utils import get_brightml_path
 from brightml.utils import ensure_path_exists
 from brightml.utils import get_brightness_paths
+from brightml.utils import ensure_latest_update_path
 
 try:
     # ensure_future() has been introduced in Python 3.4.4
@@ -77,11 +78,9 @@ async def watch_fs(bml, brightml_path=None):
     if brightml_path is None:
         brightml_path = get_brightml_path()
 
-    ensure_path_exists(brightml_path)
-    last_update_path = os.path.join(brightml_path, "last_updated/")
-    ensure_path_exists(last_update_path)
+    last_update_dir, _ = ensure_latest_update_path(brightml_path)
 
-    monitored_paths = [last_update_path] + get_brightness_paths()
+    monitored_paths = [last_update_dir] + get_brightness_paths()
 
     print(monitored_paths)
     watch = AIOWatchdog(monitored_paths, bml)

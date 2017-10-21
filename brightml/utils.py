@@ -53,3 +53,15 @@ def save_sample(data, path=None):
 def get_brightness_paths():
     base_dir = "/sys/class/backlight"
     return [os.path.join(base_dir, x) + "/" for x in os.listdir(base_dir)]
+
+
+def ensure_latest_update_path(brightml_path=None):
+    brightml_path = brightml_path or get_brightml_path()
+    ensure_path_exists(brightml_path)
+    last_update_dir = os.path.join(brightml_path, "last_updated/")
+    ensure_path_exists(last_update_dir)
+    last_update_file = os.path.join(last_update_dir, "update")
+    if not os.path.exists(last_update_file):
+        with open(last_update_file, "w") as f:
+            pass
+    return last_update_dir, last_update_file

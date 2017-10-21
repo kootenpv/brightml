@@ -4,6 +4,7 @@ import os
 import numpy as np
 
 from brightml.utils import get_brightml_path
+from brightml.utils import ensure_latest_update_path
 
 
 class BrightnessAdapter(object):
@@ -11,7 +12,7 @@ class BrightnessAdapter(object):
         path = base_dir + name + "/"
         self.name = name
         self.path = path
-        self.update_path = self.get_update_path(brightml_path)
+        _, self.update_path = ensure_latest_update_path(brightml_path)
         self.brightness_path = self.path + "brightness"
         self.max_brightness_path = self.path + "max_brightness"
         self.max_brightness = self._read_max_brightness()
@@ -39,9 +40,6 @@ class BrightnessAdapter(object):
     def _read_max_brightness(self):
         with open(self.max_brightness_path) as f:
             return int(f.read())
-
-    def get_update_path(self, brightml_path):
-        return os.path.join(get_brightml_path(brightml_path), "last_updated/update")
 
     @property
     def is_valid(self):
