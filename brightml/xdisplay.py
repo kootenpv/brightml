@@ -33,7 +33,7 @@ class Display():
         root = disp.screen().root
         return disp, root
 
-    def get_window(self, event):
+    def get_window(self):
         try:
             window_id = self.root.get_full_property(
                 self.NET_ACTIVE_WINDOW, Xlib.X.AnyPropertyType).value[0]
@@ -45,8 +45,8 @@ class Display():
             return None
         return Window(active_window, window_name, window_class)
 
-    def get_window_info(self, event):
-        active_window = self.get_window(event)
+    def get_window_info(self):
+        active_window = self.get_window()
 
         if active_window is None:
             return self.last_value
@@ -92,7 +92,7 @@ class Display():
                 continue
 
             if event.atom in (self.NET_ACTIVE_WINDOW, self.NET_WM_NAME):
-                self.get_window_info(event)
+                self.get_window_info()
                 adjust_brightness_fn()
 
 

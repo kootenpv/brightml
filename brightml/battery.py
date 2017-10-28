@@ -3,14 +3,15 @@ import platform
 import numpy as np
 
 
-def is_discharging(power_supply_path):
+def on_power(power_supply_path):
     for supply in os.listdir(power_supply_path):
-        if not supply.startswith("BAT"):
+        # check if supply other than BATTERY is "online"
+        if supply.startswith("BAT"):
             continue
-        status_path = os.path.join(power_supply_path, supply, "status")
-        with open(status_path) as f:
-            status = f.read().strip()
-            if status == "Discharging":
+        online_path = os.path.join(power_supply_path, supply, "online")
+        with open(online_path) as f:
+            online = f.read().strip()
+            if online == "1":
                 return True
     return False
 
@@ -36,8 +37,11 @@ def get_battery_percentage(power_supply_path):
 
 def get_battery_feature(power_supply_path="/sys/class/power_supply/"):
     operating_system = platform.system()
+    # missing value if not on linux
     if operating_system != "Linux":
         return np.nan
-    if not is_discharging(power_supply_path):
+    # if on_power, return highest score (100%)
+    if on_power(power_supply_path):
         return 100
+    # get aggregated battery percentage
     return get_battery_percentage(power_supply_path)

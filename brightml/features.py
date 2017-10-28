@@ -39,11 +39,15 @@ def get_time_features():
 
 
 def get_features():
+    if p is None:
+        whereami_value = None
+    else:
+        whereami_value = p.predicted_value or p.predict()
     data = {
         "ambient_light": get_ambient_light(),
-        "whereami": p.predicted_value if p else None
+        "whereami": whereami_value
     }
     data.update(get_time_features())
-    data.update(d.last_value)
+    data.update(d.last_value or d.get_window_info())
     data.update({"battery": get_battery_feature()})
     return data
