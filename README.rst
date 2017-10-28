@@ -31,6 +31,7 @@ It will learn to generalize based on your personal needs. To do this, it uses:
 - Ambient light sensor (if available)
 - Hour of day
 - whereami (indoor wifi positioning)
+- Battery feature (only if discharging)
 - Active application name
 - Active window title
 

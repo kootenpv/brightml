@@ -10,6 +10,7 @@ try:
 except ImportError:
     p = None
 
+from brightml.battery import get_battery_feature
 from brightml.xdisplay import Display
 d = Display()
 
@@ -44,4 +45,5 @@ def get_features():
     }
     data.update(get_time_features())
     data.update(d.last_value)
+    data.update({"battery": get_battery_feature()})
     return data
