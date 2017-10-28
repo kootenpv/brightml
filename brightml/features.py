@@ -40,7 +40,7 @@ def get_time_features():
 
 def get_features():
     if p is None:
-        whereami_value = None
+        whereami_value = np.nan
     else:
         whereami_value = p.predicted_value or p.predict()
     data = {
