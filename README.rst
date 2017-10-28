@@ -74,3 +74,23 @@ For now, just ready for preview, run on command line:
 ::
 
     sudo brightml
+
+This will run brightml in the foreground.
+
+To instead just show current feature values, run:
+
+::
+
+    pascal@archbook:~$ brightml features
+    {
+        "ambient_light": 1,
+        "whereami": "bed",
+        "datetime_hour": 21,
+        "datetime_timezone": "UTC+02:00",
+        "datetime_date": "2017-10-28",
+        "datetime_full": "2017-10-28 21:52:43+02:00",
+        "display_pixel_mean": 9.072666666666667,
+        "display_window_name": "pascal@archbook:~",
+        "display_window_class": "urxvt URxvt",
+        "battery": 95.94282414091828
+    }
