@@ -1,7 +1,0 @@
-zmq
-numpy
-pandas
-scikit-learn
-python-xlib
-Pillow
-whereami
