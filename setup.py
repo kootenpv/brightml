@@ -8,9 +8,6 @@ import codecs
 
 from setuptools import setup, find_packages
 
-a = "this is a very long string fjjjjjjor example ifnd padf asdfasdf adsf asdfas dfjjjjjjjjj aadsfasmmmmmmmmm "
-
-
 try:
     # Python 3
     from os import dirname
