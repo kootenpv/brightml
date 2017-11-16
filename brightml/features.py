@@ -21,8 +21,8 @@ DATE_FORMAT = '%Y-%m-%dT%H:%M:%S%z'
 def get_ambient_light():
     try:
         # please, if your ambient light sensor doesn't work, post the path in the issues on github
-        with open("/sys/devices/platform/applesmc.768/light") as f:
-            return int(f.read()[1:-1].split(",")[0])
+        with open("/sys/bus/iio/devices/iio:device0/in_illuminance0_input") as f:
+            return int(f.read())
     except:
         return np.nan
 
