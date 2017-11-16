@@ -40,8 +40,7 @@ class Display():
             active_window = self.disp.create_resource_object('window', window_id)
             window_class = " ".join(active_window.get_wm_class())
             window_name = active_window.get_full_property(self.NET_WM_NAME, 0).value
-        except Xlib.error.XError:  # simplify dealing with BadWindow
-            #self.disp, self.root = self.get_display_and_root()
+        except:
             return None
         return Window(active_window, window_name, window_class)
 
