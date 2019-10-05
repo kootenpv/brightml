@@ -8,17 +8,8 @@ import codecs
 
 from setuptools import setup, find_packages
 
-try:
-    # Python 3
-    from os import dirname
-except ImportError:
-    # Python 2
-    from os.path import dirname
-
-here = os.path.abspath(dirname(__file__))
-with codecs.open(os.path.join(here, 'README.rst'), encoding='utf-8') as f:
-    long_description = '\n' + f.read()
-
+with open("README.md") as f:
+    LONG_DESCRIPTION = f.read()
 
 if sys.argv[-1] == "publish":
     os.system("python setup.py sdist bdist_wheel upload")
@@ -50,7 +41,8 @@ setup(
     name='brightml',
     version=version,
     description='Machine Learned Auto brightness',
-    long_description=long_description,
+    long_description=LONG_DESCRIPTION,
+    long_description_content_type="text/markdown",
     author='Pascal van Kooten',
     author_email='kootenpv@gmail.com',
     url='https://github.com/kootenpv/brightml',

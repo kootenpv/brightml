@@ -1,24 +1,12 @@
+<p align="center">
+    <a href="#" target="_blank"><img src="./resources/logo.png"></a>
+</p>
 
-.. raw:: html
+# brightml: Machine-Learned Auto brightness
 
-  <p align="center">
-      <a href="#" target="_blank"><img src="./resources/logo.png"></a>
-  </p>
-
-brightml: Machine-Learned Auto brightness
-=========================================
-
-.. image:: https://img.shields.io/pypi/v/brightml.svg
-    :target: https://pypi.python.org/pypi/brightml
-
-.. image:: https://img.shields.io/pypi/l/brigtml.svg
-    :target: https://pypi.python.org/pypi/brightml
-
-.. image:: https://img.shields.io/pypi/wheel/brightml.svg
-    :target: https://pypi.python.org/pypi/brightml
-
-.. image:: https://img.shields.io/pypi/pyversions/brightml.svg
-    :target: https://pypi.python.org/pypi/brightml
+[![PyPI](https://img.shields.io/pypi/pyversions/brightml.svg?style=flat-square&logo=python)](https://pypi.python.org/pypi/brightml/)
+[![PyPI](https://img.shields.io/pypi/v/brightml.svg?style=flat-square&logo=pypi)](https://pypi.python.org/pypi/brightml/)
+[![HitCount](http://hits.dwyl.io/kootenpv/brightml.svg)](http://hits.dwyl.io/kootenpv/brightml)
 
 The goal of this package is to automatically manage brightness on laptops, with "zero config"; using machine learning.
 Some do not even realise that what is "on" your screen, matters. White screens (like browser) vs coding (in black) should be accounted for.
@@ -35,8 +23,7 @@ It will learn to generalize based on your personal needs. To do this, it uses:
 - Active application name
 - Active window title
 
-Features
---------
+### Features
 
 - Cross-OS (within Linux)
 - Cross-vendor (intel, nvidia)
@@ -44,42 +31,32 @@ Features
 - Seamless integration: No need to change key bindings as it monitors brightness change by user
 - Uses asyncio, event-based (change of window immediately triggers prediction; no timer)
 
-Goals
------
+### Goals
+
 - Provide service files to enable by startup (systemd: done)
 - Add a command to show "feature importance"
 - More extensibility (plugin based)
 - Cross-platform (OSX)
 
-Installation
-------------
-
-::
+### Installation
 
     pip install brightml
 
 Bonus: set up `whereami <https://github.com/kootenpv/whereami>`_ to include indoor positioning in the predictions.
 
-::
-
     pip install brightml[whereami]
 
-Usage
------
+### Usage
 
 Eventually we need to get some service files for the different Operating Systems, so the process starts on boot.
 
 For now, just ready for preview, run on command line:
-
-::
 
     sudo brightml
 
 This will run brightml in the foreground.
 
 To instead just show current feature values, run:
-
-::
 
     pascal@archbook:~$ brightml features
     {
