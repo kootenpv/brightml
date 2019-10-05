@@ -33,12 +33,12 @@ required = [
     "Pillow",
     "simplejson",
     "pyinotify",
-    "watchdog"
+    "watchdog",
+    "cachetools",
+    "pynput",
 ]
 
-extras_require = {
-    'whereami': ['whereami']
-}
+extras_require = {'whereami': ['whereami']}
 
 # poor man's version parser
 with open("brightml/__init__.py") as f:
@@ -57,9 +57,7 @@ setup(
     packages=find_packages(),
     install_requires=required,
     license='MIT',
-    entry_points={
-        'console_scripts': ['brightml = brightml.__main__:main']
-    },
+    entry_points={'console_scripts': ['brightml = brightml.__main__:main']},
     extras_require=extras_require,
     classifiers=[
         'Programming Language :: Python',
@@ -71,7 +69,6 @@ setup(
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: Implementation :: CPython',
-        'Programming Language :: Python :: Implementation :: PyPy'
-
+        'Programming Language :: Python :: Implementation :: PyPy',
     ],
 )

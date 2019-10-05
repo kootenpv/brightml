@@ -6,7 +6,7 @@ from brightml.brightness import BrightnessManager
 
 from whereami.predict import Predicter
 
-p = Predicter()
+whereami_predicter = Predicter()
 
 bm = BrightnessManager()
 
@@ -17,7 +17,7 @@ D = {}
 
 
 async def whereami():
-    D["whereami"] = p.predict()
+    D["whereami"] = whereami_predicter.predict()
     print(D["whereami"])
     await asyncio.sleep(30)
     asyncio.ensure_future(whereami())
@@ -69,9 +69,11 @@ async def fuck(x):
     asyncio.sleep(0)
     print("fuck", x)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     from threading import Thread
     from brightml.x11_active_window import main
+
     t = Thread(target=main, args=[lambda x: loop.create_task(fuck(x))])
     t.start()
     loop.run_forever()

@@ -8,18 +8,14 @@ from brightml.utils import ensure_path_exists
 from brightml.utils import get_brightness_paths
 from brightml.utils import ensure_latest_update_path
 
-try:
-    # ensure_future() has been introduced in Python 3.4.4
-    from asyncio import ensure_future
-except ImportError:
-    from asyncio import async as ensure_future
+from asyncio import ensure_future
 
 watchdog.observers.inotify_buffer.InotifyBuffer.delay = 0
 
-EVENT_TYPE_MOVED = 'moved'
-EVENT_TYPE_DELETED = 'deleted'
-EVENT_TYPE_CREATED = 'created'
-EVENT_TYPE_MODIFIED = 'modified'
+EVENT_TYPE_MOVED = "moved"
+EVENT_TYPE_DELETED = "deleted"
+EVENT_TYPE_CREATED = "created"
+EVENT_TYPE_MODIFIED = "modified"
 
 
 class AIOEventHandler(object):
@@ -46,16 +42,13 @@ class AIOEventHandler(object):
             self.task = ensure_future(self.bml.retrain())
 
     def dispatch(self, event):
-        _method_map = {
-            EVENT_TYPE_MODIFIED: self.on_modified,
-        }
+        _method_map = {EVENT_TYPE_MODIFIED: self.on_modified}
         handlers = [_method_map[event.event_type]]
         for handler in handlers:
             self._loop.call_soon_threadsafe(ensure_future, handler(event))
 
 
 class AIOWatchdog(object):
-
     def __init__(self, paths, bml):
         self.observer = Observer()
 

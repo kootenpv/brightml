@@ -10,7 +10,7 @@ def get_brightml_path(path=None):
     if path is None:
         if _NONE_PATH is None:
             _USERNAME = os.getenv("SUDO_USER") or os.getenv("USER") or "/."
-            path = os.path.expanduser('~' + _USERNAME)
+            path = os.path.expanduser("~" + _USERNAME)
             path = os.path.join(path, ".brightml")
             _NONE_PATH = path
         else:
@@ -31,10 +31,10 @@ def get_data_path(path=None):
 
 
 def prep_data(data):
-    data = data.sort_values(by='datetime_full')
+    data = data.sort_values(by="datetime_full")
     if "new_brightness" in data.columns:
         col_sort = [x for x in data.columns if x != "new_brightness"] + ["new_brightness"]
-        data = data.reindex_axis(col_sort, axis=1)
+        data = data.reindex(col_sort, axis=1)
     return data
 
 

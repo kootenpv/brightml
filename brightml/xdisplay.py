@@ -1,10 +1,11 @@
+import time
 import numpy as np
 import Xlib
 import Xlib.display
 import PIL.Image
 
 
-class Window():
+class Window:
     def __init__(self, window, window_name, window_class):
         self.window = window
         self.window_name = window_name
@@ -17,7 +18,7 @@ class Window():
         return self.window.get_image(*args)
 
 
-class Display():
+class Display:
     def __init__(self):
         self.disp, self.root = self.get_display_and_root()
         self.last_value = None
@@ -36,7 +37,8 @@ class Display():
     def get_window(self):
         try:
             window_id = self.root.get_full_property(
-                self.NET_ACTIVE_WINDOW, Xlib.X.AnyPropertyType).value[0]
+                self.NET_ACTIVE_WINDOW, Xlib.X.AnyPropertyType
+            ).value[0]
             active_window = self.disp.create_resource_object('window', window_id)
             window_class = " ".join(active_window.get_wm_class())
             window_name = active_window.get_full_property(self.NET_WM_NAME, 0).value
@@ -44,16 +46,20 @@ class Display():
             return None
         return Window(active_window, window_name, window_class)
 
+    @property
+    def default_value(self):
+        return {"display_pixel_mean": np.nan, "display_window_name": "", "display_window_class": ""}
+
     def get_window_info(self):
         active_window = self.get_window()
 
         if active_window is None:
-            return self.last_value
+            return self.default_value
 
         try:
             geo = active_window.get_geometry()
         except Xlib.error.XError:
-            return self.last_value
+            return self.default_value
         # verified okay
         # for gw in [0, 5, 10, 20, 30]:
         #     start_x = max(0, int(gw / 2) - 10)
@@ -66,9 +72,12 @@ class Display():
         start_y = max(0, int(geo.height / 2) - 50)
         height = min(50, geo.height)
 
+        # otherwise the screen is not updated yet
+        time.sleep(0.07)
         try:
-            img = active_window.get_image(start_x, start_y, width,
-                                          height, Xlib.X.ZPixmap, 0xffffffff)
+            img = active_window.get_image(
+                start_x, start_y, width, height, Xlib.X.ZPixmap, 0xFFFFFFFF
+            )
         except Xlib.error.XError:
             return self.last_value
 
@@ -78,7 +87,7 @@ class Display():
         self.last_value = {
             "display_pixel_mean": pixels.mean(),
             "display_window_name": active_window.window_name.decode("utf8"),
-            "display_window_class": active_window.window_class
+            "display_window_class": active_window.window_class,
         }
         # print(self.last_value)
         return self.last_value
@@ -97,11 +106,13 @@ class Display():
 
 if __name__ == "__main__":
     from threading import Thread
+
     d = Display()
     t = Thread(target=d.main_thread_fn, args=[print])
     t.start()
     while True:
         import time
+
         time.sleep(2)
         print(1)
     t.join()

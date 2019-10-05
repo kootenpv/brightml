@@ -3,8 +3,9 @@ import pandas as pd
 from sklearn.pipeline import TransformerMixin
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.pipeline import make_pipeline
-from sklearn.ensemble import RandomForestRegressor
 from sklearn.neighbors import KNeighborsRegressor
+
+# from sklearn.ensemble import RandomForestRegressor
 
 from brightml.utils import get_training_data
 
@@ -34,7 +35,7 @@ class DataFrameImputer(TransformerMixin):
 
     @staticmethod
     def get_impute_val(col):
-        if col.dtype == np.dtype('O'):
+        if col.dtype == np.dtype("O"):
             val = ""
         elif col.dtype == np.dtype(float):
             val = col.mean()
@@ -81,25 +82,25 @@ class SelectLast(TransformerMixin):
         return self
 
     def transform(self, X, y=None):
-        X = X.groupby(self.groupby).last().reset_index()
-        X = X.reindex_axis(self.cols, axis=1)
+        X = X.groupby(list(self.groupby)).last().reset_index()
+        X = X.reindex(self.cols, axis=1)
         X = X.fillna(0)
         return X
 
 
 def get_pipeline(X):
+
     return make_pipeline(
         DataFrameImputer(),
         Labelizer(),
         SelectLast(),
-        OneHotEncoder(handle_unknown="ignore",
-                      categorical_features=X.dtypes == np.object, sparse=False)
+        OneHotEncoder(
+            n_values="auto",
+            handle_unknown="ignore",
+            categorical_features=X.dtypes == np.object,
+            sparse=False,
+        ),
     )
-
-
-def prune(data):
-    sl = SelectLast()
-    return sl.fit_transform(data)
 
 
 def get_classifier_pipeline(path=None, clf=KNeighborsRegressor(1)):
@@ -112,4 +113,5 @@ def get_classifier_pipeline(path=None, clf=KNeighborsRegressor(1)):
     X, y = data[:, :-1], data[:, -1]
     print("train.shape", X.shape)
     clf.fit(X, y)
+    # print("coef", clf.coef_)
     return pipeline, clf

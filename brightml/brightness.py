@@ -27,7 +27,7 @@ class BrightnessAdapter(object):
 
     def _set_brightness(self, brightness):
         brightness = np.clip(int(brightness), 1, self.max_brightness)
-        #print(self.name, self.brightness, brightness)
+        # print(self.name, self.brightness, brightness)
         with open(self.brightness_path, "w") as f:
             f.write(str(int(brightness)))
         with open(self.update_path, "w") as f:
@@ -88,6 +88,14 @@ class BrightnessManager(object):
     def set_by_percentage(self, percentage):
         for a in self.adapters:
             a.brightness = a.max_brightness * (percentage / 100)
+            # # external_monitor
+            # converted_xrandr = min(1, percentage / 100 * 2)
+            # os.system(
+            #     "xrandr --output HDMI-0 --brightness {} 2>1 > /dev/null".format(converted_xrandr)
+            # )
+            # os.system(
+            #     "xrandr --output DP-4 --brightness {} 2>1 > /dev/null".format(converted_xrandr)
+            # )
 
     def get_snapshot(self):
         return {x.name: x.brightness for x in self.adapters}
