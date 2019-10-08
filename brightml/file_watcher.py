@@ -7,7 +7,6 @@ from brightml.utils import get_brightml_path
 from brightml.utils import ensure_path_exists
 from brightml.utils import get_brightness_paths
 from brightml.utils import ensure_latest_update_path
-
 from asyncio import ensure_future
 
 watchdog.observers.inotify_buffer.InotifyBuffer.delay = 0
@@ -78,5 +77,5 @@ async def watch_fs(bml, brightml_path=None):
     print(monitored_paths)
     watch = AIOWatchdog(monitored_paths, bml)
     watch.start()
-    await asyncio.sleep(1000)
+    await asyncio.sleep(365 * 24 * 60 * 60 * 100)
     watch.stop()
