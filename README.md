@@ -30,6 +30,7 @@ It will learn to generalize based on your personal needs. To do this, it uses:
 - Cross-hardware (with or without ambient light sensor, linux on macbook works)
 - Seamless integration: No need to change key bindings as it monitors brightness change by user
 - Uses asyncio, event-based (change of window immediately triggers prediction; no timer)
+- Updates brightness on focusing different windows and on scrolling
 
 ### Goals
 
