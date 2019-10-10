@@ -4,6 +4,8 @@ import Xlib
 import Xlib.display
 import PIL.Image
 
+HISTOGRAM_BASE = np.tile(np.arange(256), 3)
+
 
 class Window:
     def __init__(self, window, window_name, window_class):
@@ -66,11 +68,15 @@ class Display:
         #     width = min(20, gw)
         #     print(gw, start_x, width)
 
-        start_x = max(0, int(geo.width / 2) - 50)
-        width = min(50, geo.width)
+        # start_x = max(0, int(geo.width / 2) - 50)
+        # width = min(50, geo.width)
+        # start_y = max(0, int(geo.height / 2) - 50)
+        # height = min(50, geo.height)
 
-        start_y = max(0, int(geo.height / 2) - 50)
-        height = min(50, geo.height)
+        start_x = 0
+        width = geo.width
+        start_y = 0
+        height = geo.height
 
         # otherwise the screen is not updated yet
         time.sleep(0.07)
@@ -78,14 +84,18 @@ class Display:
             img = active_window.get_image(
                 start_x, start_y, width, height, Xlib.X.ZPixmap, 0xFFFFFFFF
             )
-        except Xlib.error.XError:
+        except Xlib.error.XError as e:
+            print(e)
             return self.last_value
 
         img = PIL.Image.frombytes("RGB", (width, height), img.data, "raw", "BGRX")
-        pixels = np.array(img.getdata(), np.uint8).reshape(img.size[1], img.size[0], 3)
+        # histogram returns a list of integers of size (768,) (256x3).
+        # they are the counts per 0-255 for all the channels
+        ha = np.array(img.histogram())
+        pixel_mean = np.sum(HISTOGRAM_BASE * ha) / np.sum(ha)
 
         self.last_value = {
-            "display_pixel_mean": pixels.mean(),
+            "display_pixel_mean": pixel_mean,
             "display_window_name": active_window.window_name.decode("utf8"),
             "display_window_class": active_window.window_class,
         }
