@@ -8,6 +8,11 @@
 [![PyPI](https://img.shields.io/pypi/v/brightml.svg?style=flat-square&logo=pypi)](https://pypi.python.org/pypi/brightml/)
 [![HitCount](http://hits.dwyl.io/kootenpv/brightml.svg)](http://hits.dwyl.io/kootenpv/brightml)
 
+<p align="center">
+    <a href="#" target="_blank"><img src="./brightml.gif" width="50%"></a>
+</p>
+
+
 The goal of this package is to automatically manage brightness on laptops, with "zero config"; using machine learning.
 Some do not even realise that what is "on" your screen, matters. White screens (like browser) vs coding (in black) should be accounted for.
 
